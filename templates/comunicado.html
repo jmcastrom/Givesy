@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5 text-left">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Content-->
+        <div class="p-4">
+
+          <p class="lead font-weight-bold">{{ object.titulo }}</p>
+
+          <p>{{ object.descripcion }}</p>
+
+          <h4>
+            <strong>
+              <span href="{{ item.get_absolute_url }}" class="badge bg-primary">{{ object.ciudad }}</span>
+            </strong>
+          </h4>
+
+          <h5>
+            <strong>
+              <span href="{{ item.get_absolute_url }}" class="badge bg-secondary">{{ object.departamento }}</span>
+            </strong>
+          </h5>
+
+
+
+
+          <p class="text-capitalize">
+            <a class="fw-bolder">Autor: </a>
+            <a href="/">{{ object.autor }} </a>
+          </p>
+
+
+          <h6>Contactar fundación <i class="fas fa-phone"></i></h6>
+
+          <p class="text-capitalize">
+            <a class="fw-bolder">Tel: </a>
+            <a href="">{{ object.telefono }} </a>
+          </p>
+
+          <p class="">
+            <a class="fw-bolder">Email: </a>
+            <a href="/">{{ object.autor.email }} </a>
+          </p>
+
+          <p class="text-capitalize">
+            <a class="fw-bolder">Cuenta: </a>
+            <a href="">{{ object.cuenta_ahorros }} </a>
+          </p>
+
+          {% for i in object.autor.productos_ofertados %}
+          {% if i == object.idComunicado %}
+          <p>Esta publicación es tuya</p>
+          <a href="/">Eliminar </a>
+          {% endif %}
+          {% endfor %}
+
+          {% comment %} <form class="d-flex justify-content-left">
+            <!-- Default input -->
+            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
+            <button class="btn btn-primary btn-md my-0 p" type="submit">
+              Add to cart
+              <i class="fas fa-shopping-cart ml-1"></i>
+            </button>
+
+          </form>
+          <a href="/" class="btn btn-success btn-md my-0 p">
+            Contactar Fundación
+            <i class="fas fa-phone"></i>
+          </a>{% endcomment %}
+          {% comment %}
+          <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+            Añadir a lista de deseos
+            <i class="fas fa-list-ul ml-1"></i>
+          </a>
+
+          <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p md-3">
+            Remove from cart
+          </a> {% endcomment %}
+
+        </div>
+        <!--Content-->
+
+      </div>
+      <!--Grid column-->
+
+      <div class="col-md-6 mb-4 text-center">
+
+        <img src="{{ object.image.url }}" class="img-fluid" alt="" width="300" height="300">>
+
+      </div>
+
+    </div>
+    <!--Grid row-->
+
+
+    <hr>
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 text-center">
+
+        <h4 class="my-4 h4">Additional information</h4>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
+          voluptates,
+          quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-12 mb-4">
+
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+</main>
+
+{% endblock content %}

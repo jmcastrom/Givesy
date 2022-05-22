@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <div class="container">
+
+        <div class="table-responsive text-nowrap">
+            <h2>Lista de deseos</h2>
+            <h4>
+                <small class="text-muted">Productos y servicios guardados
+                </small>
+            </h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Ofertante</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Ciudad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order_item in object.items.all %}
+                    <tr>
+                        <th scope="row">{{ order_item.item.idProducto }}</th>
+                        <td>{{ order_item.item.title }}</td>
+                        <td>{{ order_item.item.ofertante }}</td>
+                        <td>{{ order_item.item.tipo }}</td>
+                        <td>{{ order_item.item.ciudad }}</td>
+                        <td>
+                            <a style='color: red;' href="{% url 'core:remove-from-cart' order_item.item.slug %}">
+                                <i class="fas fa-trash float-right"></i>
+                            </a>
+                        </td>
+
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan='5'>Your cart is empty</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5">
+                            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="5">
+                            <a class='btn btn-secondary float-right white-text' href='/'>Volver</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,218 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main>
+  <div class="container wow fadeIn">
+    <h2 class="my-5 h2 text-center">Publica un nuevo artículo</h2>
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <div class="card">
+          <form method="POST" class="card-body" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h3>Datos del producto o servicio</h3>
+
+            <!--Grid column-->
+            <h4>
+              <small class="text-muted">Tipo de artículo</small>
+            </h4>
+            <h5>
+              <small class="text-muted">Selecciona el tipo de publicación que quieres hacer</small>
+            </h5>
+            <div class="col-lg-4 col-md-12 mb-4">
+              <h5>
+                <select class="custom-select d-block w-100" name="es_servicio" id="es_servicio" required>
+                  <option value="">Selecciona...</option>
+                  {% for i in form.fields.b_o_s.choices %}
+                  <option>{{i}}</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                  Selecciona una opción válida.
+                </div>
+
+            </div>
+            <!--Grid column-->
+
+            <div class='hideable_shipping_form'>
+
+              <div class="md-form mb-5">
+                <h4 class="mb-1">
+                  <small class="text-muted">Título
+                  </small>
+                </h4>
+                <input type='text' placeholder='Título de tu producto' id='nombre' name='nombre' class='form-control'
+                  required />
+              </div>
+
+              <div class="md-form mb-5">
+                <h4 class="mb-2">
+                  <small class="text-muted">Descripción
+                  </small>
+                </h4>
+                <h5>
+                  <small class="text-muted">Puedes especificar datos como la marca, el tamaño, el estado o el tiempo de
+                    tu producto.
+                  </small>
+                </h5>
+                <textarea class="form-control" rows="4" id='descripcion' name='descripcion'
+                  placeholder=" Describe tu producto" required></textarea>
+              </div>
+
+              <!--Grid column-->
+              <h4>
+                <small class="text-muted">Departamento</small>
+              </h4>
+              <h5>
+                <small class="text-muted">Selecciona el departamento donde lo estás ofertando</small>
+              </h5>
+              <div class="col-lg-4 col-md-12 mb-4">
+                <h5>
+                  <select class="custom-select d-block w-100" name="departamento" id="departamento" required>
+                    <option value="">Selecciona...</option>
+                    {% for i in form.fields.departamentos_list.choices %}
+                    <option>{{i}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Selecciona una opción válida.
+                  </div>
+
+              </div>
+              <!--Grid column-->
+
+              <div class="md-form mb-5">
+                <h4 class="mb-1">
+                  <small class="text-muted">Ciudad
+                  </small>
+                </h4>
+                <h5>
+                  <small class="text-muted">Escribe el nombre de la ciudad o municipio donde lo estás ofertando</small>
+                </h5>
+                <input type='text' placeholder='Tu ciudad' id='ciudad' name='ciudad' class='form-control' required />
+              </div>
+
+              <div class="mb-5">
+                <h4>
+                  <small class="text-muted">Fotos
+                  </small>
+                </h4>
+                <h5>
+                  <small class="text-muted">Selecciona la foto principal de tu producto</small>
+                </h5>
+                <input class="form-control" type="file" id="foto" accept="image/*" name="foto" required>
+              </div>
+
+
+              <!--Grid column-->
+
+              <h4>
+                <small class="text-muted">Categoría
+                </small>
+              </h4>
+              <h5>
+                <small class="text-muted">Selecciona la categoría que consideres apropiada para tu tu producto</small>
+              </h5>
+              <div class="col-lg-4 col-md-12 mb-4">
+                <h5>
+                  {% comment %}
+                  <label for="categoria">Categoria</label>{% endcomment %}
+                  <select class="custom-select d-block w-100" name="categoria" id="categoria" required>
+                    <option value="">Choose...</option>
+                    {% for i in form.fields.categoria_list.choices %}
+                    <option>{{i}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Selecciona una categoría válida.
+                  </div>
+
+              </div>
+              <!--Grid column-->
+
+              <h4>
+                <small class="text-muted">Tipo
+                </small>
+              </h4>
+              <h5>
+                <small class="text-muted">Selecciona la opción donación si deseas donar tu producto, y la opción
+                  intercambio si esperas recibir otro producto a cambio.</small>
+              </h5>
+
+              <div class="d-block my-3">
+                {% for value, name in form.fields.tipo.choices %}
+                <div class="custom-control custom-radio">
+                  <input id="{{ name }}" name="tipo" value="{{ value }}" type="radio" class="custom-control-input"
+                    required>
+                  <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                </div>
+                {% endfor %}
+              </div>
+
+              <h5>
+                <small class="text-muted">Aquí puede describir qué tipo de producto te gustaría obtener en caso de
+                  querer realizar un intercambio. Ejemplo: "Me gustaría obtener una calculadora o unos audífonos a
+                  cambio"
+                </small>
+              </h5>
+
+              {% comment %}
+              <label for="productoIntercambio" class="">Producto intercambio (opcional)</label>
+              {% endcomment %}
+              <textarea class="form-control mb-4" rows="2" id='intercambio' name='intercambio'
+                placeholder=" Describe tu producto intercambio (opcional)"></textarea>
+
+              &nbsp;
+              &nbsp;
+
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="terminos" id="terminos" required>
+                <label class="custom-control-label" for="terminos">Acepto términos y condiciones</label>
+              </div>
+
+            </div>
+
+
+
+
+        </div>
+
+        <hr class="mb-4">
+        <button class="btn btn-secondary btn-lg btn-block" type="submit">Publicar</button>
+
+        </form>
+
+      </div>
+
+      <div class="col-md-4 mb-4">
+        {% include "order_snippet.html" %}
+      </div>
+
+    </div>
+
+
+  </div>
+
+  </div>
+</main>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+  var hideable_shipping_form = $(' .hideable_shipping_form'); var hideable_billing_form = $('.hideable_billing_form');
+  var use_default_shipping = document.querySelector("input[name=use_default_shipping]"); var
+    use_default_billing = document.querySelector("input[name=use_default_billing]");
+  use_default_shipping.addEventListener('change', function () {
+    if (this.checked) {
+      hideable_shipping_form.hide();
+    } else { hideable_shipping_form.show(); }
+  })
+  use_default_billing.addEventListener('change', function () {
+    if (this.checked) {
+      hideable_billing_form.hide();
+    } else { hideable_billing_form.show(); }
+  }) </script>
+{% endblock extra_scripts %}

@@ -1,0 +1,83 @@
+{% load static %}
+{% load cart_template_tags %}
+
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      <img src="{% static '/images/home/finallogo5.png' %}" alt="Givesy" width="149" height="40"
+        class="d-inline-block align-text-top">
+    </a>
+
+    {% comment %}
+    <a class="navbar-brand" href="#">
+      <img src="images/home/finallogo.png" height="20" alt="MDB Logo" loading="lazy" />
+    </a>
+
+    <a class="navbar-brand waves-effect" href="/">
+      <strong class="blue-text">Givesy</strong>
+    </a> {% endcomment %}
+
+    <!-- Collapse -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        {% comment %} <li class="nav-item active">
+          <a class="nav-link waves-effect" href="/">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect" href="/checkout">
+            Checkout</a>
+        </li> {% endcomment %}
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+        {% if request.user.is_authenticated %}
+
+
+        <li class="nav-item md-6">
+          <a href="{% url 'core:checkout2' %}" class="nav-link waves-effect">
+            <i class="fas fa-hands-helping"></i>
+            <span class="clearfix d-none d-sm-inline-block"> Publicar </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
+            <i class="fas fa-list-ul"></i>
+            <span class="badge rounded-pill badge-notification bg-secondary">{{ request.user|cart_item_count }}</span>
+            <span class="clearfix d-none d-sm-inline-block"> Lista de deseos </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+            <span class="clearfix d-none d-sm-inline-block"> Cerrar sesión </span>
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+            <span class="clearfix d-none d-sm-inline-block"> Iniciar sesión </span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+            <span class="clearfix d-none d-sm-inline-block"> Registrarse </span>
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+
+  </div>
+</nav>

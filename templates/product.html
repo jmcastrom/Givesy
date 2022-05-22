@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main class="mt-5 pt-4">
+  <div class="container dark-grey-text mt-5">
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4 text-center">
+
+        <img src="{{ object.image.url }}" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <!--Content-->
+        <div class="p-4">
+
+          <p class="lead font-weight-bold">{{ object.title }}</p>
+
+          <p>{{ object.description }}</p>
+
+          <h5>
+            <strong>
+              <span href="{{ item.get_absolute_url }}" class="badge bg-secondary">{{ object.tipo }}</span>
+            </strong>
+          </h5>
+
+          {% if object.tipo == "Intercambio" %}
+          <p>Ofrece un producto</p>
+          <a class="fw-bolder">{{ object.ofertante }}: </a>
+          <a> "{{ object.intercambio }}"</a>
+          {% endif %}
+
+          <p class="text-capitalize">
+            <a class="fw-bolder">Ofertante: </a>
+            <a href="/">{{ object.ofertante }} </a>
+          </p>
+
+          <h6>Contactar ofertante <i class="fas fa-phone"></i></h6>
+
+          <p class="text-capitalize">
+            <a class="fw-bolder">Tel: </a>
+            <a href="/">{{ object.ofertante.phone }} </a>
+          </p>
+
+          <p>
+            <a class="fw-bolder">Email: </a>
+            <a href="/">{{ object.ofertante.email }} </a>
+          </p>
+
+          <h5>
+            <strong>
+              <span href="{{ item.get_absolute_url }}" class="badge bg-secondary">{{ object.ciudad }}</span>
+            </strong>
+          </h5>
+
+          {% for i in object.ofertante.productos_ofertados %}
+          {% if i == object.idProducto %}
+          <p>Este producto es tuyo</p>
+          <a href="/">Eliminar</a>
+          {% endif %}
+          {% endfor %}
+
+
+          <h5>
+            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+              Añadir a lista de deseos
+              <i class="fas fa-list-ul ml-1"></i>
+            </a>
+          </h5>
+
+
+          {% comment %}
+          <a href="/" class="btn btn-success btn-md my-0 p">
+            Contactar ofertante
+            <i class="fas fa-phone"></i>
+          </a>
+          {% endcomment %}
+
+          {% comment %}
+          <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p md-3">
+            Remove from cart
+          </a> {% endcomment %}
+
+        </div>
+        <!--Content-->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+
+    <hr>
+
+    <!--Grid row-->
+    <div class="row d-flex justify-content-center wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 text-center">
+
+        <h4 class="my-4 h4">Additional information</h4>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
+          voluptates,
+          quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <!--Grid row-->
+    <div class="row wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-12 mb-4">
+
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-lg-4 col-md-6 mb-4">
+
+        <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+</main>
+
+{% endblock content %}
