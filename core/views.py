@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
 from django.shortcuts import redirect, render
 
-from .forms import CheckoutForm, CheckoutForm2, CouponForm, RefundForm, PaymentForm
+from .forms import CheckoutForm, CheckoutForm2, CouponForm, RefundForm, PaymentForm, FundacionForm,  ComunicadoForm
 from .models import Item, Item2, OrderItem, OrderItem2, Order, Order2, Address, Payment, Coupon, Refund, UserProfile, CustomUser, Fundacion, Comunicado
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -222,40 +222,127 @@ class CheckoutView2(View):
         form = CheckoutForm2(self.request.POST or None)
         if form.is_valid():
             print(form.cleaned_data)
-            terminos = self.request.POST.get('terminos')
-            if(terminos.__eq__('on')):
-                messages.success(
-                    self.request, "Producto publicado correctamente")
-                nombre = self.request.POST.get('nombre')
-                descripcion = self.request.POST.get('descripcion')
-                auto_slug = Item2.generate_slug(nombre.replace(" ", ""))
-                servicio = self.request.POST.get('es_servicio')
-                es_servicio = False
-                if(servicio.__eq__('Servicio')):
-                    es_servicio = True
-                ofertante_nombre = self.request.user
-                ofertante = CustomUser.objects.get(
-                    username=ofertante_nombre)
-                print("ofertanto")
-                print(self.request)
-                print(type(ofertante))
-                print(ofertante)
-                newProducto = Item2(es_servicio=es_servicio, title=nombre.lower().capitalize(), ofertante=ofertante, description=descripcion.lower().capitalize(), departamento=self.request.POST.get(
-                    'departamento'), ciudad=self.request.POST.get('ciudad').lower().capitalize(), intercambio=self.request.POST.get('intercambio'), categoria=self.request.POST.get('categoria'), tipo=self.request.POST.get('tipo'), slug=auto_slug, image=self.request.FILES['foto'])
-                newProducto.save()
-                id = newProducto.idProducto
-                ofertante.productos_ofertados.append(id)
-                ofertante.save()
-                print(ofertante.productos_ofertados)
-                newProducto.save()
-                # CustomUser.objects.filter(username=ofertante_nombre).update(
-                #   productos_ofertados.append(id))
-                # self.update(productos_ofertados=Append(
-                #   'productos_ofertados', id))
-                # print(self.request.productos_ofertados)
-                print("Producto creado correctamente")
-                print(CustomUser.objects.filter(username=ofertante))
+        terminos = self.request.POST.get('terminos')
+        if(terminos.__eq__('on')):
+            messages.success(
+                self.request, "Producto publicado correctamente")
+            nombre = self.request.POST.get('nombre')
+            descripcion = self.request.POST.get('descripcion')
+            auto_slug = Item2.generate_slug(nombre.replace(" ", ""))
+            servicio = self.request.POST.get('es_servicio')
+            es_servicio = False
+            if(servicio.__eq__('Servicio')):
+                es_servicio = True
+            ofertante_nombre = self.request.user
+            ofertante = CustomUser.objects.get(
+                username=ofertante_nombre)
+            intercambio = self.request.POST.get('intercambio')
+            print("intercambio:hhhhhh")
+            print(intercambio)
+            print("hhhhhhhh")
+            busca_intercambio = False
+            if(not(intercambio.__eq__(''))):
+                busca_intercambio = True
+            print("ofertanto")
+            print(self.request)
+            print(type(ofertante))
+            print(ofertante)
+            newProducto = Item2(es_servicio=es_servicio, busca_intercambio=busca_intercambio, title=nombre.lower().capitalize(), ofertante=ofertante, description=descripcion.lower().capitalize(), departamento=self.request.POST.get(
+                'departamento'), ciudad=self.request.POST.get('ciudad').lower().capitalize(), intercambio=self.request.POST.get('intercambio'), categoria=self.request.POST.get('categoria'),
+                tipo=self.request.POST.get('tipo'), slug=auto_slug, image=self.request.FILES['foto'], telefono=self.request.POST.get('telefono'), email=self.request.POST.get('email'))
+            newProducto.save()
+            id = newProducto.idProducto
+            ofertante.productos_ofertados.append(id)
+            ofertante.save()
+            print(ofertante.productos_ofertados)
+            newProducto.save()
+            # CustomUser.objects.filter(username=ofertante_nombre).update(
+            #   productos_ofertados.append(id))
+            # self.update(productos_ofertados=Append(
+            #   'productos_ofertados', id))
+            # print(self.request.productos_ofertados)
+            print("Producto creado correctamente")
+            print(CustomUser.objects.filter(username=ofertante))
         return redirect("/")
+
+
+class VistaRegistrarFundacion(View):
+    def get(self, *args, **kwargs):
+        form = FundacionForm()
+        context = {
+            'form': form,
+        }
+        return render(self.request, "crear_fundacion.html", context)
+
+    def post(self, *args, **kwargs):
+        form = FundacionForm(self.request.POST or None)
+        if form.is_valid():
+            print(form.cleaned_data)
+            nombre = self.request.POST.get('nombre')
+            descripcion = self.request.POST.get('descripcion')
+            auto_slug = Fundacion.generate_slug(nombre.replace(" ", ""))
+            admin_nombre = self.request.user
+            admin = CustomUser.objects.get(
+                username=admin_nombre)
+            newFundacion = Fundacion(administrador=admin, nombre=nombre.lower().capitalize(), descripcion=descripcion.lower().capitalize(), departamento=self.request.POST.get(
+                'departamento'), ciudad=self.request.POST.get('ciudad').lower().capitalize(), direccion=self.request.POST.get('direccion'), telefono=self.request.POST.get('telefono'),
+                estrato=self.request.POST.get('estrato'), slug=auto_slug, image=self.request.FILES['foto'], nombre_admin=self.request.POST.get('nombre_admin'), cc_admid=self.request.POST.get('cc_admin'),
+                codigo_nit=self.request.POST.get('codigo_nit'),)
+            newFundacion.save()
+            id = newFundacion.idFundacion
+            admin.fundaciones.append(id)
+            admin.save()
+            newFundacion.save()
+            messages.success(
+                self.request, "Fundación registrada correctamente")
+            print("Producto creado correctamente")
+        return redirect("/fundaciones/")
+
+
+class VistaHacerComunicado(View):
+    def get(self, *args, **kwargs):
+        form = ComunicadoForm()
+        context = {
+            'form': form,
+        }
+        return render(self.request, "hacer_comunicado.html", context)
+
+    def post(self, *args, **kwargs):
+        form = ComunicadoForm(self.request.POST or None)
+        # if form.is_valid():
+        #   print(form.cleaned_data)
+        print(self.request.POST.get('es_urgente'))
+        urgencia = self.request.POST.get('es_urgente')
+        es_urgente = False
+        if(urgencia.__eq__('on')):
+            es_urgente = True
+        if(urgencia.__eq__('None')):
+            es_urgente = False
+        cuenta_ahorros = self.request.POST.get('cuenta_ahorros')
+        print(cuenta_ahorros)
+        tiene_cuenta = False
+        if(not(cuenta_ahorros.__eq__(''))):
+            tiene_cuenta = True
+        titulo = self.request.POST.get('titulo')
+        descripcion = self.request.POST.get('descripcion')
+        auto_slug = Fundacion.generate_slug(titulo.replace(" ", ""))
+        autor_nombre = self.request.user
+        autor = CustomUser.objects.get(
+            username=autor_nombre)
+        newComunicado = Comunicado(es_urgente=es_urgente, autor=autor, titulo=titulo.lower().capitalize(), descripcion=descripcion.lower().capitalize(), departamento=self.request.POST.get(
+            'departamento'), ciudad=self.request.POST.get('ciudad').lower().capitalize(), direccion=self.request.POST.get('direccion'), telefono=self.request.POST.get('telefono'),
+            email=self.request.POST.get('email'), slug=auto_slug, tiene_cuenta=tiene_cuenta, image=self.request.FILES['foto'], cuenta_ahorros=self.request.POST.get('cuenta_ahorros'), especificaciones_cuenta=self.request.POST.get('especificaciones_cuenta'))
+        newComunicado.save()
+        id = newComunicado.idComunicado
+        autor.comunicados.append(id)
+        autor.save()
+        newComunicado.save()
+        print("oe q paso")
+        print(newComunicado.es_urgente)
+        messages.success(
+            self.request, "Comunicado realizado con éxito")
+        print("Producto creado correctamente")
+        return redirect("/comunicados/")
 
 
 class PaymentView(View):
@@ -405,7 +492,7 @@ class HomeView(ListView):
 
 class VistaServiciosLista(ListView):
     model = Item2
-    paginate_by = 20
+    paginate_by = 15
     template_name = "servicios_lista.html"
 
 

@@ -12,7 +12,8 @@ CATEGORY_CHOICES = (
     'Ropa',
     'Tecnología',
     'Mascotas',
-    'Cocina'
+    'Cocina',
+    'Uso Cotidiano'
 )
 
 ESTRATO_CHOICES = (
@@ -107,6 +108,8 @@ class CheckoutForm2(forms.Form):
     departamentos_list = forms.ChoiceField(
         choices=DEPARTAMENTO_CHOICES, required=False)
     ciudad = forms.CharField()
+    email = forms.CharField()
+    telefono = forms.CharField()
     categoria = forms.Select()
     categoria_list = forms.ChoiceField(
         choices=CATEGORY_CHOICES, required=False)
@@ -120,13 +123,37 @@ class CheckoutForm2(forms.Form):
 class FundacionForm(forms.Form):
     nombre = forms.CharField()
     descripcion = forms.CharField()
+    codigo_nit = forms.IntegerField()
     telefono = forms.IntegerField()
     estrato = forms.Select()
     estratos_list = forms.ChoiceField(
         choices=ESTRATO_CHOICES, required=False)
     foto = forms.ImageField(required=False)
+    nombre_admin = forms.CharField()
     cc_admin = forms.IntegerField()
+    departamento = forms.Select()
+    departamentos_list = forms.ChoiceField(
+        choices=DEPARTAMENTO_CHOICES, required=False)
     ciudad = forms.CharField()
+    direccion = forms.CharField()
+
+    terminos = forms.BooleanField(required=False)
+
+
+class ComunicadoForm(forms.Form):
+    es_urgente = forms.BooleanField(required=False)
+    titulo = forms.CharField()
+    descripcion = forms.CharField()
+    email = forms.CharField()
+    telefono = forms.CharField()
+    foto = forms.ImageField(required=False)
+    departamento = forms.Select()
+    departamentos_list = forms.ChoiceField(
+        choices=DEPARTAMENTO_CHOICES, required=False)
+    ciudad = forms.CharField()
+    direccion = forms.CharField()
+    cuenta_ahorros = forms.CharField()
+    especificaciones_cuenta = forms.CharField()
 
     terminos = forms.BooleanField(required=False)
 

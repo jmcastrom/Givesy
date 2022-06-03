@@ -16,7 +16,9 @@ from .views import (
     VistaServiciosLista,
     VistaComunicadosLista,
     VistaServicio,
-    VistaComunicado
+    VistaComunicado,
+    VistaRegistrarFundacion,
+    VistaHacerComunicado
 )
 
 app_name = 'core'
@@ -28,6 +30,10 @@ urlpatterns = [
     path('comunicados/', VistaComunicadosLista.as_view(), name='comunicados'),
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('checkout2/', CheckoutView2.as_view(), name='checkout2'),
+    path('registrarFundacion/', VistaRegistrarFundacion.as_view(),
+         name='registrar-fundacion'),
+    path('hacerComunicado/', VistaHacerComunicado.as_view(),
+         name='hacer-comunicado'),
     path('order-summary/', OrderSummaryView.as_view(), name='order-summary'),
     path('servicio/<slug>/', VistaServicio.as_view(), name='servicio'),
     path('comunicado/<slug>/', VistaComunicado.as_view(), name='comunicado'),

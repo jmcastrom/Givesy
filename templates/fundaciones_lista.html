@@ -118,7 +118,7 @@
                 <a target="_blank" href="/fundaciones/" class="btn btn-outline-white btn-lg">Ver fundaciones
                   <i class="fas fa-home"></i>
                 </a>
-                <a target="_blank" href="/" class="btn btn-outline-white btn-lg">Registrar fundación
+                <a target="_blank" href="/registrarFundacion/" class="btn btn-outline-white btn-lg">Registrar fundación
                   <i class="fas fa-home"></i>
                 </a>
               </div>
@@ -155,7 +155,7 @@
                     comunidad, no dudes en postearla en la sección comunicados.</strong>
                 </p>
 
-                <a target="_blank" href="/" class="btn btn-outline-white btn-lg">Hacer un comunicado
+                <a target="_blank" href="/hacerComunicado/" class="btn btn-outline-white btn-lg">Hacer un comunicado
                   <i class="fas fa-bullhorn"></i>
                 </a>
               </div>
@@ -183,7 +183,7 @@
                 </h1>
 
                 <p>
-                  <strong>El cambio empieza en nosotros mismos y el futuro estpa en nuestras manos.</strong>
+                  <strong>El cambio empieza en nosotros mismos y el futuro está en nuestras manos.</strong>
                 </p>
 
                 <p class="mb-4 d-none d-md-block">
@@ -222,6 +222,10 @@
     <!--/.Carousel Wrapper-->
     &nbsp;
     &nbsp;
+    <a class="btn white-text" style=" background-color: rgb(63, 44, 78);" href="/registrarFundacion/" role="button">
+      <i class="fas fa-plus"></i>
+      Registrar Fundación
+    </a>
     {% for item in object_list %}
     <!-- Card2 -->
     <div class="card mb-3" style="max-width: 840px;">
@@ -234,11 +238,11 @@
           <div class="card-body text-left">
             <h5>
               <strong>
-                <a href=" {{ item.get_absolute_url }}" class="dark-grey-text">{{ item.nombre }}
+                <a href=" {{ item.get_absolute_url }}" class="dark-grey-text text-capitalize">{{ item.nombre }}
                 </a>
               </strong>
             </h5>
-            <p class="card-text text-capitalize">
+            <p class="card-text">
               {{ item.descripcion }}
             </p>
 

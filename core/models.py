@@ -31,9 +31,11 @@ ADDRESS_CHOICES = (
 
 
 class CustomUser(AbstractUser):
-    phone = models.CharField(max_length=20, blank=True, null=True)
-    contact_link = models.CharField(max_length=200, blank=True, null=True)
     productos_ofertados = ArrayField(models.IntegerField(
+        blank=True, null=True), blank=True, null=True, default=list)
+    fundaciones = ArrayField(models.IntegerField(
+        blank=True, null=True), blank=True, null=True, default=list)
+    comunicados = ArrayField(models.IntegerField(
         blank=True, null=True), blank=True, null=True, default=list)
 
 
@@ -83,11 +85,15 @@ class Item2(models.Model):
         CustomUser, related_name='Ofertante', on_delete=models.CASCADE)
     title = models.CharField(max_length=50, blank=True)
     description = models.TextField()
+    email = models.CharField(max_length=40, blank=True,
+                             default="ejemplo@eafit.edu.co")
+    telefono = models.CharField(max_length=40, blank=True, default="555-666")
     departamento = models.CharField(max_length=15, blank=True)
     ciudad = models.CharField(max_length=20, blank=True)
     categoria = models.CharField(max_length=20, blank=True, null=True)
     tipo = models.CharField(max_length=15, blank=True)
     intercambio = models.TextField(blank=True, null=True)
+    busca_intercambio = models.BooleanField(blank=True, default=False)
     slug = models.SlugField()
     image = models.ImageField(null=True, blank=True)
 
@@ -243,8 +249,11 @@ class Fundacion(models.Model):
         CustomUser, related_name='Administrador', on_delete=models.CASCADE)
     nombre = models.CharField(max_length=200, blank=True)
     descripcion = models.TextField(blank=True)
-    telefono = models.IntegerField(blank=True)
+    email = models.CharField(max_length=40, blank=True,
+                             default="ejemplo@eafit.edu.co")
+    telefono = models.CharField(blank=True, max_length=30)
     estrato = models.IntegerField(blank=True)
+    nombre_admin = models.CharField(max_length=60, blank=True)
     cc_admid = models.CharField(max_length=25, blank=True)
     departamento = models.TextField()
     ciudad = models.CharField(max_length=20, blank=True)
@@ -294,8 +303,13 @@ class Comunicado(models.Model):
     departamento = models.TextField()
     ciudad = models.CharField(max_length=20, blank=True)
     direccion = models.CharField(max_length=20, blank=True, null=True)
-    telefono = models.CharField(max_length=20, blank=True)
-    cuenta_ahorros = models.CharField(max_length=20, blank=True)
+    telefono = models.CharField(max_length=30, blank=True)
+    email = models.CharField(max_length=40, blank=True,
+                             default="ejemplo@eafit.edu.co")
+    cuenta_ahorros = models.CharField(max_length=20, blank=True, null=True)
+    tiene_cuenta = models.BooleanField(blank=True, default=False)
+    especificaciones_cuenta = models.CharField(
+        max_length=60, blank=True, null=True)
     slug = models.SlugField()
     image = models.ImageField(null=True, blank=True)
 

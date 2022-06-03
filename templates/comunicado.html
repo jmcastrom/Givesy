@@ -12,53 +12,55 @@
 
         <!--Content-->
         <div class="p-4">
+          {% if object.es_urgente %}
+          <h5>
+            <strong>
+              <span class="badge bg-danger">URGENTE</span>
+            </strong>
+          </h5>
+          {% endif %}
+
 
           <p class="lead font-weight-bold">{{ object.titulo }}</p>
 
           <p>{{ object.descripcion }}</p>
 
-          <h4>
-            <strong>
-              <span href="{{ item.get_absolute_url }}" class="badge bg-primary">{{ object.ciudad }}</span>
-            </strong>
-          </h4>
-
-          <h5>
-            <strong>
-              <span href="{{ item.get_absolute_url }}" class="badge bg-secondary">{{ object.departamento }}</span>
-            </strong>
-          </h5>
-
-
-
-
           <p class="text-capitalize">
-            <a class="fw-bolder">Autor: </a>
-            <a href="/">{{ object.autor }} </a>
+            <strong class="fw-bolder">Autor: </strong>
+            <a>{{ object.autor }} </a>
           </p>
 
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Lugar: </strong>
+            <a>{{ object.ciudad }}, {{ object.departamento }} </a>
+          </p>
 
-          <h6>Contactar fundación <i class="fas fa-phone"></i></h6>
+          <h6>Contactar <i class="fas fa-phone"></i></h6>
 
           <p class="text-capitalize">
-            <a class="fw-bolder">Tel: </a>
-            <a href="">{{ object.telefono }} </a>
+            <strong class="fw-bolder">Teléfono: </strong>
+            <a>{{ object.telefono }} </a>
           </p>
 
           <p class="">
             <a class="fw-bolder">Email: </a>
-            <a href="/">{{ object.autor.email }} </a>
+            <a>{{ object.email }} </a>
           </p>
 
+          {% if object.tiene_cuenta %}
           <p class="text-capitalize">
-            <a class="fw-bolder">Cuenta: </a>
-            <a href="">{{ object.cuenta_ahorros }} </a>
+            <strong class="fw-bolder">Cuenta de ahorros: </strong>
+            <a>{{ object.cuenta_ahorros }} </a>
           </p>
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Especificaciones de la cuenta: </strong>
+            <a>{{ object.especificaciones_cuenta }} </a>
+          </p>
+          {% endif %}
 
-          {% for i in object.autor.productos_ofertados %}
+          {% for i in object.autor.comunicados %}
           {% if i == object.idComunicado %}
-          <p>Esta publicación es tuya</p>
-          <a href="/">Eliminar </a>
+          <p>Esta publicación es tuya. <a href="/"> Eliminar </a></p>
           {% endif %}
           {% endfor %}
 

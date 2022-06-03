@@ -32,57 +32,49 @@
           </h5>
 
           {% if object.tipo == "Intercambio" %}
-          <p>Ofrece un producto</p>
-          <a class="fw-bolder">{{ object.ofertante }}: </a>
+          <p>Este item se ha publicado como intercambio, por lo que deberás ofrecerle al ofertante un bien o servicio.
+          </p>
+          {% if object.busca_intercambio %}
+          <a class="fw-bolder text-capitalize">{{ object.ofertante }}: </a>
           <a> "{{ object.intercambio }}"</a>
           {% endif %}
+          {% endif %}
 
-          <p class="text-capitalize">
-            <a class="fw-bolder">Ofertante: </a>
-            <a href="/">{{ object.ofertante }} </a>
-          </p>
+          <h5>
+            <strong>
+              <span href="{{ item.get_absolute_url }}" class="badge bg-primary">{{ object.ciudad }}</span>
+            </strong>
+          </h5>
 
           <h6>Contactar ofertante <i class="fas fa-phone"></i></h6>
 
           <p class="text-capitalize">
+            <a class="fw-bolder">Usuario: </a>
+            <a href="/">{{ object.ofertante }} </a>
+          </p>
+
+          <p class="text-capitalize">
             <a class="fw-bolder">Tel: </a>
-            <a href="/">{{ object.ofertante.phone }} </a>
+            <a href="/">{{ object.telefono }} </a>
           </p>
 
           <p>
             <a class="fw-bolder">Email: </a>
-            <a href="/">{{ object.ofertante.email }} </a>
+            <a href="/">{{ object.email }} </a>
           </p>
-
-          <h5>
-            <strong>
-              <span href="{{ item.get_absolute_url }}" class="badge bg-secondary">{{ object.ciudad }}</span>
-            </strong>
-          </h5>
 
           {% for i in object.ofertante.productos_ofertados %}
           {% if i == object.idProducto %}
-          <p>Este producto es tuyo</p>
-          <a href="/">Eliminar </a>
+          <p>Este producto es tuyo. <a href="/">Eliminar</a></p>
+
           {% endif %}
           {% endfor %}
 
-
-
-          {% comment %} <form class="d-flex justify-content-left">
-            <!-- Default input -->
-            <input type="number" value="1" aria-label="Search" class="form-control" style="width: 100px">
-            <button class="btn btn-primary btn-md my-0 p" type="submit">
-              Add to cart
-              <i class="fas fa-shopping-cart ml-1"></i>
-            </button>
-
-          </form> {% endcomment %}
           <h5>
-            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+            <p href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
               Añadir a lista de deseos
               <i class="fas fa-list-ul ml-1"></i>
-            </a>
+            </p>
           </h5>
           {% comment %}
           <a href="{{ object.get_remove_from_cart_url }}" class="btn btn-danger btn-md my-0 p md-3">

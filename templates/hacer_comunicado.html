@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main>
+  <div class="container wow fadeIn">
+    <h2 class="my-5 h2 text-center">Haz un comunicado</h2>
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <div class="card">
+          <form method="POST" class="card-body" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h3>Información del comunicado</h3>
+
+            <div class='hideable_shipping_form'>
+
+              <h4 class="mb-1">
+                <small class="text-muted">Urgencia del comunicado
+                </small>
+              </h4>
+              <h5>
+                <small class="text-muted">Marca la siguiente casilla si consideras que necesitas ayuda de manera
+                  urgente.
+                </small>
+              </h5>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="es_urgente" id="es_urgente">
+                <label class="custom-control-label text-muted" for="es_urgente">Considero que este comunicado es una
+                  emergencia.</label>
+              </div>
+
+              <div class="md-form mb-5">
+                <h4 class="mb-1">
+                  <small class="text-muted">Título del comunicado
+                  </small>
+                </h4>
+                <input type='text' placeholder='Titulo' id='titulo' name='titulo' class='form-control' required />
+              </div>
+
+              <div class="md-form mb-5">
+                <h4 class="mb-2">
+                  <small class="text-muted">Descripción
+                  </small>
+                </h4>
+                <h5>
+                  <small class="text-muted">Describe la problemática.
+                  </small>
+                </h5>
+                <textarea class="form-control" rows="4" id='descripcion' name='descripcion' placeholder=" Descripción"
+                  required></textarea>
+              </div>
+
+              <!--Grid column-->
+              <h4>
+                <small class="text-muted">Departamento</small>
+              </h4>
+              <h5>
+                <small class="text-muted">Selecciona el departamento donde se ubica la entidad.</small>
+              </h5>
+              <div class="col-lg-4 col-md-12 mb-4">
+                <h5>
+                  <select class="custom-select d-block w-100" name="departamento" id="departamento" required>
+                    <option value="">Selecciona...</option>
+                    {% for i in form.fields.departamentos_list.choices %}
+                    <option>{{i}}</option>
+                    {% endfor %}
+                  </select>
+                  <div class="invalid-feedback">
+                    Selecciona una opción válida.
+                  </div>
+
+              </div>
+              <!--Grid column-->
+
+              <div class="md-form mb-5">
+                <h4 class="mb-1">
+                  <small class="text-muted">Ciudad
+                  </small>
+                </h4>
+                <h5>
+                  <small class="text-muted">Escribe el nombre de la ciudad o municipio.</small>
+                </h5>
+                <input type='text' placeholder='Tu ciudad' id='ciudad' name='ciudad' class='form-control' required />
+              </div>
+
+              <div class="md-form mb-5">
+                <h4 class="mb-1">
+                  <small class="text-muted">Dirección
+                  </small>
+                </h4>
+                <input type='text' placeholder='Ejemplo: Carrera 44a Número 17-60' id='direccion' name='direccion'
+                  class='form-control' required />
+              </div>
+
+              <h4>
+                <small class="text-muted">Información importante</small>
+              </h4>
+              <div class="form-outline mb-2">
+                <div class="form-helper text-muted">Proporciona un número para contactar.</div>
+                <input type="number" id="telefono" name="telefono" class="form-control" placeholder='Teléfono'
+                  required />
+              </div>
+              <div class="form-outline mb-2">
+                <label class="form-label text-muted" for="email">Proporciona un correo electrónico.</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder='Email' required />
+              </div>
+              <div class="form-outline mb-2">
+                <div class="form-helper text-muted">Proporciona una cuenta de ahorros en la que puedas recibir apoyo
+                  económico (opcional).</div>
+                <input type="number" id="cuenta_ahorros" name="cuenta_ahorros" class="form-control"
+                  placeholder='Número de cuenta' />
+              </div>
+              <div class="form-outline mb-5">
+                <div class="form-helper text-muted">Especifíca la información de la cuenta, como banco o tipo de cuenta
+                  (opcional).</div>
+                <textarea class="form-control" rows="2" id='especificaciones_cuenta' name='especificaciones_cuenta'
+                  placeholder=' Ejemplo: Ahorros Bancolombia'></textarea>
+              </div>
+              <!--Grid column-->
+
+              <div class="mb-5">
+                <h4>
+                  <small class="text-muted">Foto
+                  </small>
+                </h4>
+                <h5>
+                  <small class="text-muted">Sube una imagen relacionada al comunicado.</small>
+                </h5>
+                <input class="form-control" type="file" id="foto" accept="image/*" name="foto">
+              </div>
+
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="terminos" id="terminos" required>
+                <label class="custom-control-label" for="terminos">Acepto términos y condiciones.</label>
+              </div>
+            </div>
+        </div>
+
+        <hr class="mb-4">
+        <button class="btn btn-lg btn-block white-text" type="submit"
+          style=" background-color: rgb(63, 44, 78);">Publicar</button>
+
+        </form>
+
+      </div>
+
+      <div class="col-md-4 mb-4">
+        {% include "order_snippet.html" %}
+      </div>
+
+    </div>
+
+
+  </div>
+
+  </div>
+</main>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+  var hideable_shipping_form = $(' .hideable_shipping_form'); var hideable_billing_form = $('.hideable_billing_form');
+  var use_default_shipping = document.querySelector("input[name=use_default_shipping]"); var
+    use_default_billing = document.querySelector("input[name=use_default_billing]");
+  use_default_shipping.addEventListener('change', function () {
+    if (this.checked) {
+      hideable_shipping_form.hide();
+    } else { hideable_shipping_form.show(); }
+  })
+  use_default_billing.addEventListener('change', function () {
+    if (this.checked) {
+      hideable_billing_form.hide();
+    } else { hideable_billing_form.show(); }
+  }) </script>
+{% endblock extra_scripts %}

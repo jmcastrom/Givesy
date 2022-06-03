@@ -21,7 +21,7 @@
         <!--Content-->
         <div class="p-4">
 
-          <p class="lead font-weight-bold">{{ object.nombre }}</p>
+          <p class="lead font-weight-bold text-capitalize">{{ object.nombre }}</p>
 
           <p>{{ object.descripcion }}</p>
 
@@ -31,37 +31,67 @@
             </strong>
           </h5>
 
-          {% for i in object.ofertante.productos_ofertados %}
-          {% if i == object.idProducto %}
-          <p>Este producto es tuyo</p>
-          <a href="{{ item.delete_product }}">Eliminar </a>
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Administrador: </strong>
+            <a>{{ object.nombre_admin }} </a>
+          </p>
+
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Cédula: </strong>
+            <a>{{ object.cc_admid }} </a>
+          </p>
+
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Código NIT: </strong>
+            <a>{{ object.codigo_nit }} </a>
+          </p>
+          <p>
+          <h6>El código NIT certifica que la página está registrada en la cámara de comercio. Más
+            información en
+            <a href="http://www.rues.org.co/"> http://www.rues.org.co/</a>
+          </h6>
+          </p>
+
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Departamento: </strong>
+            <a>{{ object.departamento }} </a>
+          </p>
+
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Ciudad: </strong>
+            <a>{{ object.ciudad }} </a>
+          </p>
+
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Dirección: </strong>
+            <a>{{ object.direccion }} </a>
+          </p>
+
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Estrato: </strong>
+            <a>{{ object.estrato }} </a>
+          </p>
+
+          <h6>
+            <strong>
+              Contactar <i class="fas fa-phone"></i></strong>
+          </h6>
+
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Teléfono: </strong>
+            <a>{{ object.telefono }} </a>
+          </p>
+
+          <p class="">
+            <strong class="fw-bolder">Email: </strong>
+            <a>{{ object.email }} </a>
+          </p>
+
+          {% for i in object.administrador.fundaciones %}
+          {% if i == object.idFundacion %}
+          <p>Eres administrador. <a href="{{ item.delete_product }}">Eliminar fundación </a></p>
           {% endif %}
           {% endfor %}
-
-          <p class="text-capitalize">
-            <a class="fw-bolder">Administrador: </a>
-            <a href="/">{{ object.administrador }} </a>
-          </p>
-
-          <p class="text-capitalize">
-            <a class="fw-bolder">Tel: </a>
-            <a href="">{{ object.telefono }} </a>
-          </p>
-
-          <p class="text-capitalize">
-            <a class="fw-bolder">Departamento: </a>
-            <a href="">{{ object.departamento }} </a>
-          </p>
-
-          <p class="text-capitalize">
-            <a class="fw-bolder">Direccion: </a>
-            <a href="">{{ object.direccion }} - {{ object.ciudad }} </a>
-          </p>
-
-          <p class="text-capitalize">
-            <a class="fw-bolder">Estrato: </a>
-            <a href="">{{ object.estrato }} </a>
-          </p>
 
           {% comment %} <form class="d-flex justify-content-left">
             <!-- Default input -->
@@ -71,11 +101,11 @@
               <i class="fas fa-shopping-cart ml-1"></i>
             </button>
 
-          </form> {% endcomment %}
+          </form>
           <a href="/" class="btn btn-success btn-md my-0 p">
             Contactar Fundación
             <i class="fas fa-phone"></i>
-          </a>
+          </a> {% endcomment %}
           {% comment %}
           <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
             Añadir a lista de deseos

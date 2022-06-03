@@ -17,7 +17,7 @@ make_refund_accepted.short_description = 'Update orders to refund granted'
 class CustomUserAdmin(UserAdmin):
     list_display = (
         'username', 'email', 'first_name', 'last_name', 'is_staff',
-        'phone', 'contact_link'
+        #'phone', 'contact_link'
     )
 
     fieldsets = (

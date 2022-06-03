@@ -21,7 +21,7 @@
         <!--Content-->
         <div class="p-4">
 
-          <p class="lead font-weight-bold">{{ object.title }}</p>
+          <p class="lead font-weight-bold text-capitalize">{{ object.title }}</p>
 
           <p>{{ object.description }}</p>
 
@@ -32,52 +32,54 @@
           </h5>
 
           {% if object.tipo == "Intercambio" %}
-          <p>Ofrece un producto</p>
-          <a class="fw-bolder">{{ object.ofertante }}: </a>
-          <a> "{{ object.intercambio }}"</a>
+          <p>Este item se ha publicado como intercambio, por lo que deberás ofrecerle al ofertante un bien o servicio.
+          </p>
+          {% if object.busca_intercambio %}
+          <a class="fw-bolder text-capitalize mb-5">{{ object.ofertante }}: </a>
+          <a class="mb-5"> "{{ object.intercambio }}"</a>
+          {% endif %}
           {% endif %}
 
           <p class="text-capitalize">
-            <a class="fw-bolder">Ofertante: </a>
-            <a href="/">{{ object.ofertante }} </a>
+            <strong class="fw-bolder">Ubicación: </strong>
+            <a>{{ object.ciudad }}, {{ object.departamento }} </a>
           </p>
-
-          <h6>Contactar ofertante <i class="fas fa-phone"></i></h6>
+          <h6>
+            <strong>
+              Contactar ofertante <i class="fas fa-phone"></i></strong>
+          </h6>
 
           <p class="text-capitalize">
-            <a class="fw-bolder">Tel: </a>
-            <a href="/">{{ object.ofertante.phone }} </a>
+            <strong class="fw-bolder">Usuario: </strong>
+            <a>{{ object.ofertante }} </a>
           </p>
-
-          <p>
-            <a class="fw-bolder">Email: </a>
-            <a href="/">{{ object.ofertante.email }} </a>
+          <p class="text-capitalize">
+            <strong class="fw-bolder">Teléfono: </strong>
+            <a>{{ object.telefono }} </a>
           </p>
-
-          <h5>
-            <strong>
-              <span href="{{ item.get_absolute_url }}" class="badge bg-secondary">{{ object.ciudad }}</span>
-            </strong>
-          </h5>
+          <p class="">
+            <strong class="fw-bolder">Email: </strong>
+            <a>{{ object.email }} </a>
+          </p>
 
           {% for i in object.ofertante.productos_ofertados %}
           {% if i == object.idProducto %}
-          <p>Este producto es tuyo</p>
-          <a href="/">Eliminar</a>
+          <p>Este producto es tuyo. <a href="/">Eliminar</a></p>
+
           {% endif %}
           {% endfor %}
 
-
           <h5>
-            <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+            <p href="{{ object.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
               Añadir a lista de deseos
               <i class="fas fa-list-ul ml-1"></i>
-            </a>
+            </p>
           </h5>
 
 
+
           {% comment %}
-          <a href="/" class="btn btn-success btn-md my-0 p">
+          <a href="/" class="btn btn-success btn-md my-0 p font-weight-bold">
             Contactar ofertante
             <i class="fas fa-phone"></i>
           </a>

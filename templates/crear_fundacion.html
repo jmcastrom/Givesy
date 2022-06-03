@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<main>
+  <div class="container wow fadeIn">
+    <h2 class="my-5 h2 text-center">Registra una fundación</h2>
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <div class="card">
+          <form method="POST" class="card-body" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h3>Información del establecimiento</h3>
+
+            <div class='hideable_shipping_form'>
+
+              <div class="md-form mb-5">
+                <h4 class="mb-1">
+                  <small class="text-muted">Nombre de la fundación
+                  </small>
+                </h4>
+                <input type='text' placeholder='Ejemplo: Fundación San José Cuervo' id='nombre' name='nombre'
+                  class='form-control' required />
+              </div>
+
+              <div class="md-form mb-5">
+                <h4 class="mb-2">
+                  <small class="text-muted">Descripción
+                  </small>
+                </h4>
+                <h5>
+                  <small class="text-muted">Danos alguna información acerca de la fundación y sus motivaciones.
+                  </small>
+                </h5>
+                <textarea class="form-control" rows="4" id='descripcion' name='descripcion'
+                  placeholder=" Información de la entidad" required></textarea>
+              </div>
+
+              <!--Grid column-->
+              <h4>
+                <small class="text-muted">Identificación administrador</small>
+              </h4>
+              <div class="form-outline mb-3">
+                <div class="form-helper text-muted">Nombre completo de la persona a cargo de la fundación
+                  (administrador).</div>
+                <input type="text" id="nombre_admin" name="nombre_admin" class="form-control"
+                  placeholder='Nombres y apellidos' />
+              </div>
+              <div class="form-outline mb-5">
+                <div class="form-helper text-muted">Digita el número de identificación del administrador sin puntos ni
+                  guiones.</div>
+                <input type="number" id="cc_admin" name="cc_admin" class="form-control"
+                  placeholder='Número de cédula' />
+              </div>
+              <h4>
+                <small class="text-muted">Código NIT</small>
+              </h4>
+              <div class="form-outline mb-5">
+                <div class="form-helper text-muted">El código NIT nos da la certeza de que estás registrando una entidad
+                  registrada en la cámara de comercio. Escribe el número de identificación sin puntos, guiones ni
+                  dígito
+                  de
+                  verificación.</div>
+                <input type="number" id="codigo_nit" name="codigo_nit" class="form-control"
+                  placeholder='Ejemplo: 901097915' />
+              </div>
+              <h4>
+                <small class="text-muted">Número de contacto</small>
+              </h4>
+              <div class="form-outline mb-5">
+                <div class="form-helper text-muted">Proporciona un número para contactar la fundación, no un número
+                  personal.</div>
+                <input type="number" id="telefono" name="telefono" class="form-control" placeholder='Teléfono' />
+              </div>
+            </div>
+
+            <h4>
+              <small class="text-muted">Departamento</small>
+            </h4>
+            <h5>
+              <small class="text-muted">Selecciona el departamento donde se ubica la entidad.</small>
+            </h5>
+            <div class="col-lg-4 col-md-12 mb-4">
+              <h5>
+                <select class="custom-select d-block w-100" name="departamento" id="departamento" required>
+                  <option value="">Selecciona...</option>
+                  {% for i in form.fields.departamentos_list.choices %}
+                  <option>{{i}}</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                  Selecciona una opción válida.
+                </div>
+
+            </div>
+            <!--Grid column-->
+
+            <div class="md-form mb-5">
+              <h4 class="mb-1">
+                <small class="text-muted">Ciudad
+                </small>
+              </h4>
+              <h5>
+                <small class="text-muted">Escribe el nombre de la ciudad o municipio.</small>
+              </h5>
+              <input type='text' placeholder='Tu ciudad' id='ciudad' name='ciudad' class='form-control' required />
+            </div>
+
+            <div class="md-form mb-5">
+              <h4 class="mb-1">
+                <small class="text-muted">Dirección
+                </small>
+              </h4>
+              <input type='text' placeholder='Ejemplo: Carrera 44a Número 17-60' id='direccion' name='direccion'
+                class='form-control' required />
+            </div>
+
+
+            <h4>
+              <small class="text-muted">Estrato</small>
+            </h4>
+            <h5>
+              <small class="text-muted">Selecciona el estrato del barrio en que está ubicada la fundación.</small>
+            </h5>
+            <div class="col-lg-4 col-md-12 mb-4">
+              <h5>
+                <select class="custom-select d-block w-100" name="estrato" id="estrato" required>
+                  <option value="">Selecciona...</option>
+                  {% for i in form.fields.estratos_list.choices %}
+                  <option>{{i}}</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                  Selecciona una opción válida.
+                </div>
+
+            </div>
+            <!--Grid column-->
+
+            <div class="mb-5">
+              <h4>
+                <small class="text-muted">Foto
+                </small>
+              </h4>
+              <h5>
+                <small class="text-muted">Selecciona la imagen identificativa de la fundación.</small>
+              </h5>
+              <input class="form-control" type="file" id="foto" accept="image/*" name="foto" required>
+            </div>
+
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" name="terminos" id="terminos" required>
+              <label class="custom-control-label text-muted" for="terminos">Acepto términos y condiciones.</label>
+            </div>
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-lg btn-block white-text" type="submit"
+          style=" background-color: rgb(63, 44, 78);">Publicar</button>
+      </div>
+
+
+
+      </form>
+      <div class="col-md-4 mb-4">
+        {% include "order_snippet.html" %}
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  </div>
+
+  </div>
+</main>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+  var hideable_shipping_form = $(' .hideable_shipping_form'); var hideable_billing_form = $('.hideable_billing_form');
+  var use_default_shipping = document.querySelector("input[name=use_default_shipping]"); var
+    use_default_billing = document.querySelector("input[name=use_default_billing]");
+  use_default_shipping.addEventListener('change', function () {
+    if (this.checked) {
+      hideable_shipping_form.hide();
+    } else { hideable_shipping_form.show(); }
+  })
+  use_default_billing.addEventListener('change', function () {
+    if (this.checked) {
+      hideable_billing_form.hide();
+    } else { hideable_billing_form.show(); }
+  }) </script>
+{% endblock extra_scripts %}
